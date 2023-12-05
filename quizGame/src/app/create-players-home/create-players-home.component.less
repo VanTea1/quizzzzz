@@ -1,0 +1,132 @@
+.createBox {
+    width: 1583px;
+    height: 826px;
+    border: 3px solid #7d69b6;
+    background-color: #B499FF;
+    border-radius: 15px;
+
+    .title {
+        position: absolute;
+        font-size: 100px;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        text-align: center;
+        position: relative;
+        top: 50px;
+    }
+
+
+    .playerList {
+        width: 511px;
+        height: 397px;
+        flex-shrink: 0;
+        background-color: #E8D6FF;
+        border: 3px solid #bda6fc;
+        border-radius: 15px;
+        top: 238px;
+        left: 300px;
+        position: absolute;
+        font-size: 45px;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+
+        .list {
+            font-size: 45px;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            position: relative;
+            text-align: center;
+            top: 24px;
+            margin-bottom: 40px;
+        }
+
+        .nameList {
+            position: relative;
+            padding: 10px;
+            font-size: 35px;
+        }
+
+        .players {
+            font-size: 30px;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            position: relative;
+            text-align: center;
+            top: 45px;
+        }
+
+        li {
+            margin-top: 5px;
+            list-style-type: none;
+            text-align: center;
+        }
+
+        li.selected-player {
+            background-color: #bfacf3a2;
+
+        }
+    }
+
+    .bNamePlayer {
+        width: 500px;
+        height: 95px;
+        flex-shrink: 0;
+        background-color: #E8D6FF;
+        border: 3px solid #bda6fc;
+        border-radius: 15px;
+        left: 1050px;
+        top: 238px;
+        position: absolute;
+        font-size: 45px;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        text-align: center;
+    }
+
+    .bCreatePlayer {
+        width: 511px;
+        height: 95px;
+        flex-shrink: 0;
+        background-color: #E8D6FF;
+        border: 3px solid #bda6fc;
+        border-radius: 15px;
+        left: 1050px;
+        top: 390px;
+        position: absolute;
+        font-size: 45px;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    }
+
+    .bDeletePlayer {
+        width: 511px;
+        height: 95px;
+        flex-shrink: 0;
+        background-color: #E8D6FF;
+        border: 3px solid #bda6fc;
+        border-radius: 15px;
+        left: 1050px;
+        top: 540px;
+        position: absolute;
+        font-size: 45px;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    }
+
+    .bPickQuiz {
+        width: 511px;
+        height: 95px;
+        flex-shrink: 0;
+        background-color: #E8D6FF;
+        border: 3px solid #bda6fc;
+        border-radius: 15px;
+        top: 720px;
+        left: 693px;
+        position: absolute;
+        font-size: 45px;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    }
+
+
+}
+
+:host {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: rgba(138, 106, 253, 0.494);
+}

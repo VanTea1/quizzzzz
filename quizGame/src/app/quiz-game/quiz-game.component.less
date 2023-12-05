@@ -1,0 +1,214 @@
+.titleField {
+    text-align: center;
+    position: relative;
+    top: 30px;
+
+
+    .titleQuiz {
+        font-size: 80px;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    }
+}
+
+.questionBox {
+    background-color: #B499FF;
+    height: 278px;
+    width: 1313px;
+    position: relative;
+    left: 303px;
+    top: 70px;
+    border: 3px solid #917FC2;
+    border-radius: 15px;
+
+    .visibleQuestion {
+        text-align: center;
+        font-size: 50px;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        margin-top: 120px;
+        margin-bottom: 50px;
+    }
+
+    .hiddenQuestion{
+        display: none;
+        text-align: center;
+        font-size: 50px;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        margin-top: 120px;
+        margin-bottom: 50px;
+    }
+
+    .visibleAnswer {
+        text-align: center;
+        font-size: 50px;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        margin-top: 120px;
+        margin-bottom: 50px;
+        color: #770fff;      
+    }
+
+    .hiddenAnswer {
+        display: none;
+        text-align: center;
+        font-size: 50px;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        margin-top: 120px;
+        margin-bottom: 50px;
+        color: #770fff;      
+    }
+
+
+    .spieler {
+        display: flex;
+        width: 100%;
+        flex-wrap: wrap;
+
+        .spielerName {
+            background-color: #E8D6FF;
+            border: 3px solid #bda6fc;
+            border-radius: 15px;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            font-size: 25px;
+            position: relative;
+            box-sizing: border-box;
+            flex-wrap: wrap;
+            align-items: center;
+            text-align: center;
+            flex: 1;
+            height: 70px;
+            width: 500px;
+            margin-left: 50px;
+        }
+
+        .spielerName:last-child {
+            margin-right: 50px;
+        }
+    }
+
+}
+
+.showScore {
+    position: absolute;
+    top: 85px;
+    left: 105px;
+    width: 100px;
+    height: 341px;
+    font-size: 50px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    background-color: #E8D6FF;
+    border: 3px solid #bda6fc;
+    border-radius: 15px;
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    text-align: center;
+    white-space: nowrap;
+    line-height: 90px;
+}
+
+.quit {
+    position: absolute;
+    top: 85px;
+    left: 1720px;
+    width: 100px;
+    height: 341px;
+    font-size: 50px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    background-color: #E8D6FF;
+    border: 3px solid #bda6fc;
+    border-radius: 15px;
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    text-align: center;
+    white-space: nowrap;
+    line-height: 90px;
+}
+
+
+.test {
+    display: flex;
+    flex-direction: row;
+}
+
+.categories {
+
+    width: 100%;
+    margin-left: 35px;
+
+    .categoryBoard {
+        position: relative;
+        display: block;
+        background-color: #B499FF;
+        width: 251px;
+        top: 150px;
+        flex: 1;
+        align-items: center;
+        text-align: center;
+        box-sizing: border-box;
+        flex-wrap: wrap;
+        justify-content: center;
+        border: 3px solid #351B50;
+        font-size: 35px;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        line-height: 150%;
+
+
+        li {
+            list-style-type: none;
+        }
+
+        .item {
+            height: 55px;
+            width: 100%;
+        }
+
+        .p000 {
+            background-color: #351B50;
+        }
+
+        .p100 {
+            background-color: #E8D6FF;
+        }
+
+        .p200 {
+            background-color: #B897FF;
+        }
+
+        .p300 {
+            background-color: #8F67FF;
+        }
+
+        .p400 {
+            background-color: #8C46FF;
+        }
+
+        .p500 {
+            background-color: #8C32FF;
+        }
+
+        .p600 {
+            background-color: #6F17FF;
+        }
+    }
+
+    .item[active="inActive"] {
+        pointer-events: none !important;
+        background-color: rgb(28, 0, 73) !important;
+    }
+}
+
+
+.backgroundLineContainer {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    z-index: -2;
+
+    .backgroundLine {
+        position: absolute;
+        top: -350px;
+        left: -600px;
+        width: 150%;
+        height: 200px;
+        background-color: #D6BDFF;
+        transform: rotate(+24.41deg);
+    }
+}

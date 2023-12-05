@@ -1,0 +1,13 @@
+<div class="quitMenu">
+    <div class="quitBox">
+        <div>
+            <h1 class="title">Winners</h1>
+        </div>
+        <div class="winners">
+            <div *ngFor="let player of top3; let i = index" ngClass="posi{{i+1}}">
+                {{i+1}}.{{player.name}} <br> Score: {{player.score}}
+            </div>
+
+        </div>
+    </div>
+</div>

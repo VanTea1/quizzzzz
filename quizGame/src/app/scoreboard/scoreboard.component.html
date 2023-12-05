@@ -1,0 +1,10 @@
+<div class="scoreboard">
+    <h1 class="scoreTitle">Scoreboard</h1>
+
+    <div class="playerBox">
+        <div class="players" *ngFor="let player of players; index as i">
+            {{i+1}}. {{player.name}}s Score: {{player.score}}
+        </div>
+    </div>
+    
+</div>

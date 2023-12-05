@@ -1,0 +1,17 @@
+<div class="quizMenu">
+    <div class="QuizSelectorBox">
+        <h1 class="title">What quiz would you like to play?</h1>
+        <div class="quizzes">
+
+            <button class="quiz"
+            *ngFor="let button of this.quiz"
+            [class.selected]="selectedQuiz === button"
+            (click)="pickQuiz(button)"
+          >
+            {{ button.nameQuiz }}
+          </button> 
+        <div>
+            <button class="bStartQuiz" (click)="startQuiz()">Start Game!</button>
+        </div>
+    </div>
+</div>

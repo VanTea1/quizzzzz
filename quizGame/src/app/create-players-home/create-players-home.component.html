@@ -1,0 +1,20 @@
+<div class="createPlayersHome">
+    <div class="createBox">
+        <div class="titleCreate">
+            <h1 class="title">Player Creation</h1>
+        </div>
+        <div class="playerList">
+            <h1 class="list">Player List</h1>
+                <li class="nameList" *ngFor="let name of this.playerList" (click)="selectPlayer(name)" [class.selected-player]="name === selectedPlayer">{{name.name}}</li>
+            
+        </div>
+        <div class="createPlayers">
+            <input type="text" class="bNamePlayer" [(ngModel)]="playerName" placeholder="Enter a name"/>
+            <button class="bCreatePlayer" (click)="addPlayer()">Create Player</button>
+            <button class="bDeletePlayer" (click)="deletePlayer()">Delete Player</button> 
+        </div>
+        <div class="pickQuiz">
+            <button class="bPickQuiz" (click)="nextPage()">Choose Quiz</button>
+        </div>
+    </div>
+</div>

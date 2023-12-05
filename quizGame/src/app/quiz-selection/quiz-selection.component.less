@@ -1,0 +1,69 @@
+.QuizSelectorBox {
+    width: 1583px;
+    height: 826px;
+    border: 3px solid #7d69b6;
+    background-color: #B499FF;
+    border-radius: 15px;
+
+    .bStartQuiz {
+        width: 511px;
+        height: 95px;
+        flex-shrink: 0;
+        background-color: #E8D6FF;
+        border: 3px solid #ac8eff;
+        border-radius: 15px;
+        border-radius: 15px;
+        top: 720px;
+        left: 693px;
+        position: absolute;
+        font-size: 45px;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    }
+
+    .title {
+        position: absolute;
+        font-size: 80px;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        text-align: center;
+        position: relative;
+        top: 50px;
+    }
+
+    .quizzes {
+        display: flex;
+        flex-wrap: wrap;
+        margin-left: 100px;
+        margin-right: 100px;
+        margin-top: 130px;
+
+        .quiz {
+            flex: 30%;
+            background-color: #E8D6FF;
+            border: 3px solid #ac8eff;
+            border-radius: 15px;
+            height: 195px;
+            align-items: center;
+            text-align: center;
+            margin: 20px;
+            box-sizing: border-box;
+            font-size: 30px;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        }
+
+        .quiz.selected {
+            background-color: #9973ff;
+            border: 3px solid #8052fd;
+            border-radius: 15px;
+        }
+    }
+
+
+}
+
+:host {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: rgba(138, 106, 253, 0.494);
+}
