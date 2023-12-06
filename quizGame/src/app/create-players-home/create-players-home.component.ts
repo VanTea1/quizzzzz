@@ -31,7 +31,8 @@ export class CreatePlayersHomeComponent {
       this.playerList = players;
     });
   }
-
+//es ist möglich die gleiche ID zu kriegen wenn man direkt die Seite refreshed nachdem man Leute hinzugefügt hat
+//muss aber wohl relativ absichtlich sein
   public addPlayer(): void {
     let newPlayer: Name = {
       id: this.playerListCount,

@@ -215,7 +215,7 @@
         ]
     },
     {
-        "nameQuiz": "Test 2",
+        "nameQuiz": "Omori",
         "categories": [
             {
                 "nameCategory": "Category 1 Q2",
@@ -430,7 +430,7 @@
         ]
     },
     {
-        "nameQuiz": "Quiz 3",
+        "nameQuiz": "League of Legends",
         "categories": [
             {
                 "nameCategory": "Category 1 Q3",
@@ -645,25 +645,25 @@
         ]
     },
     {
-        "nameQuiz": "Quiz 4",
+        "nameQuiz": "Overwatch",
         "categories": [
             {
-                "nameCategory": "Category 1 Q4",
+                "nameCategory": "Lore",
                 "questions": [
                     {
-                        "frage": "Frage 1 Q4",
+                        "frage": "Wer ist der Gründer von Overwatch?",
                         "punkte": 100,
-                        "antwort": ""
+                        "antwort": "Jack Morrison bzw. Soldier: 76"
                     },
                     {
-                        "frage": "Frage 2",
+                        "frage": "Wer ist der Meister von Genji?",
                         "punkte": 200,
-                        "antwort": ""
+                        "antwort": "Zenyatta"
                     },
                     {
-                        "frage": "Frage 3",
+                        "frage": "Wer hat Overwatch zurück gerufen?",
                         "punkte": 300,
-                        "antwort": ""
+                        "antwort": "Winton Overwat"
                     },
                     {
                         "frage": "Frage 4",
@@ -683,77 +683,42 @@
                 ]
             },
             {
-                "nameCategory": "Category 2",
+                "nameCategory": "Heroes",
                 "questions": [
                     {
-                        "frage": "Frage 1",
+                        "frage": "Wer ist Vanessas Main?",
                         "punkte": 100,
-                        "antwort": ""
+                        "antwort": "Mercy"
                     },
                     {
-                        "frage": "Frage 2",
+                        "frage": "Wer war der erste Hero in Overwatch 2?",
                         "punkte": 200,
-                        "antwort": ""
+                        "antwort": "Kiriko"
                     },
                     {
-                        "frage": "Frage 3",
+                        "frage": "Welcher Held hatte ein Bug der dann ein Feature wurde?",
                         "punkte": 300,
-                        "antwort": ""
+                        "antwort": "Mercy (Guardian Angel)"
                     },
                     {
-                        "frage": "Frage 4",
+                        "frage": "Welcher Held ist das Poster-Icon vom Spiel?",
                         "punkte": 400,
-                        "antwort": ""
+                        "antwort": "Tracer bzw. jetzt Kiriko"
                     },
                     {
-                        "frage": "Frage 5",
+                        "frage": "Welcher Held hat die meisten Nerfs bekommen?",
                         "punkte": 500,
-                        "antwort": ""
+                        "antwort": "Brigitte"
                     },
                     {
-                        "frage": "Frage 6",
+                        "frage": "Wer ist Damons Main?",
                         "punkte": 600,
-                        "antwort": ""
+                        "antwort": "None, er wechselt Mains schneller als Unterhosen"
                     }
                 ]
             },
             {
-                "nameCategory": "Category 3",
-                "questions": [
-                    {
-                        "frage": "Frage 1",
-                        "punkte": 100,
-                        "antwort": ""
-                    },
-                    {
-                        "frage": "Frage 2",
-                        "punkte": 200,
-                        "antwort": ""
-                    },
-                    {
-                        "frage": "Frage 3",
-                        "punkte": 300,
-                        "antwort": ""
-                    },
-                    {
-                        "frage": "Frage 4",
-                        "punkte": 400,
-                        "antwort": ""
-                    },
-                    {
-                        "frage": "Frage 5",
-                        "punkte": 500,
-                        "antwort": ""
-                    },
-                    {
-                        "frage": "Frage 6",
-                        "punkte": 600,
-                        "antwort": ""
-                    }
-                ]
-            },
-            {
-                "nameCategory": "Category 4",
+                "nameCategory": "Maps",
                 "questions": [
                     {
                         "frage": "Frage 1",
@@ -788,7 +753,7 @@
                 ]
             },
             {
-                "nameCategory": "Category 5",
+                "nameCategory": "Reworks",
                 "questions": [
                     {
                         "frage": "Frage 1",
@@ -823,7 +788,42 @@
                 ]
             },
             {
-                "nameCategory": "Category 6",
+                "nameCategory": "Fähigkeiten",
+                "questions": [
+                    {
+                        "frage": "Wie lädt man Zaryas Bubble?",
+                        "punkte": 100,
+                        "antwort": "Gegner schießen drauf"
+                    },
+                    {
+                        "frage": "Wer ruft einen Reifen als Ult?",
+                        "punkte": 200,
+                        "antwort": "Junkrat"
+                    },
+                    {
+                        "frage": "Wem gehört die Fähigkeit 'Venom Mine'?",
+                        "punkte": 300,
+                        "antwort": "Widowmaker"
+                    },
+                    {
+                        "frage": "Wie viel Leben hat Reins Shield?",
+                        "punkte": 400,
+                        "antwort": "1400"
+                    },
+                    {
+                        "frage": "Wie kann man Anti-Heal los werden?",
+                        "punkte": 500,
+                        "antwort": "Kiriko Nade oder warten"
+                    },
+                    {
+                        "frage": "Welche Ultimate lädt am Schnellsten auf?",
+                        "punkte": 600,
+                        "antwort": "D.VA Mech rufen"
+                    }
+                ]
+            },
+            {
+                "nameCategory": "Skins",
                 "questions": [
                     {
                         "frage": "Frage 1",
@@ -860,7 +860,7 @@
         ]
     },
     {
-        "nameQuiz": "Quiz 5",
+        "nameQuiz": "Jujutsu Kaisen",
         "categories": [
             {
                 "nameCategory": "Category 1 Q5",
@@ -1075,7 +1075,7 @@
         ]
     },
     {
-        "nameQuiz": "Quiz 6",
+        "nameQuiz": "Don't Starve",
         "categories": [
             {
                 "nameCategory": "Category 1 Q6",
