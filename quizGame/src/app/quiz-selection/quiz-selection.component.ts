@@ -2,16 +2,30 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ShareInfoService, Name, Quiz } from '../share-info.service';
 import { PlayerService } from '../player.service';
-
+import { trigger, state, style, transition, animate } from '@angular/animations';
 @Component({
   selector: 'app-quiz-selection',
   templateUrl: './quiz-selection.component.html',
-  styleUrls: ['./quiz-selection.component.less']
+  styleUrls: ['./quiz-selection.component.less'],
+  animations: [
+    trigger('startAnim', [
+      state('start', style({
+        opacity: 0,
+        transform: 'translateY(-20px)'
+      })),
+      state('end', style({
+        opacity: 1,
+        transform: 'translateY(0)'
+      })),
+      transition('start => end', animate('600ms ease-in')),
+      transition('end => start', animate('300ms ease-out'))
+    ])
+  ]
 })
 
 
 export class QuizSelectionComponent {
-
+  public animationState = 'start';
   public selectedQuiz: any = "";
   public quiz: Quiz[] = [];
   public players: Name[] = [];
@@ -34,7 +48,9 @@ export class QuizSelectionComponent {
         this.router.navigate(['/createPlayersHome']);
       }
     });
-
+    setTimeout(() => {
+      this.animationState = 'end';
+    }, 100);
 
     this.shareService.getQuizzes().subscribe({
       next: (quizzes: Quiz[]) => {
