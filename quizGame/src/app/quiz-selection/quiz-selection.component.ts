@@ -67,12 +67,12 @@ export class QuizSelectionComponent {
   public pickQuiz(pickedQuiz: Quiz): void {
     this.selectedQuiz = pickedQuiz;
     this.shareService.setSelectedQuiz(this.selectedQuiz);
-  /*   this.shareService.saveSelectedQuiz(this.selectedQuiz).subscribe(
+     this.shareService.saveSelectedQuiz(this.selectedQuiz).subscribe(
       () => {
         console.log('Selected quiz saved successfully');
       },
 
-    ); */
+    ); 
   }
 
 

@@ -2,6 +2,10 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 
+export interface ResponseType {
+  Quiz: Quiz;
+}
+
 export interface Question {
   frage: string;
   punkte: number;
@@ -61,20 +65,18 @@ export class ShareInfoService {
   }
  
 
-  //QUIZ SOLL VOM BACKEND GELADEN WERDEN DAS MAN DIE SEITE REFRESHEN KANN
 
-/* 
   private apiUrl = 'http://localhost:3001/storage/selectedquiz';
 
   public saveSelectedQuiz(selectedQuiz: Quiz): Observable<any> {
-    return this.http.post(this.apiUrl, selectedQuiz);
+    return this.http.post(this.apiUrl, { selectedQuizName: selectedQuiz });
   }
 
   public SelectedQuizBackend(): Observable<Quiz> {
     return this.http.get<Quiz>(this.apiQuizzes);
   }
 
-  public loadSelectedQuiz(): Observable<Quiz> {
-    return this.http.get<Quiz>(this.apiUrl);
-  } */
+  public loadSelectedQuiz(): Observable<ResponseType> {
+    return this.http.get<ResponseType>(this.apiUrl);
+  }
 }

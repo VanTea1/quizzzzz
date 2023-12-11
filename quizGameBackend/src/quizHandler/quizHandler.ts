@@ -18,16 +18,27 @@ export function getQuizzes(response: Response) {
 }
 
 export function saveSelectedQuiz(request: Request, response: Response) {
-  selectedQuizName = request.body;
-  console.log(selectedQuizName);
-  response.json({ message:  selectedQuizName + ' saved successfully' });
+  const Quiz = request.body.selectedQuizName;
+  const selectedQuizJson = JSON.stringify({ Quiz });
+
+  fs.writeFile(selectedQuizFilePath, selectedQuizJson, 'utf8', (error) => {
+    if (error) {
+      console.error('Error saving selectedquiz.json:', error);
+      response.status(500).json({ error: 'Internal Server Error', details: error.message });
+      return;
+    }
+
+    const selectedQuiz = JSON.parse(selectedQuizJson);
+    response.status(200).json(selectedQuiz);
+    console.log('Selected quiz loaded successfully serversided', selectedQuiz);
+  });
 }
 
 
 
 export function getSelectedQuiz(request: Request, response: Response) {
   console.log('Attempting to load selected quiz...');
-  
+
   fs.readFile(selectedQuizFilePath, 'utf8', (error, data) => {
     if (error) {
       console.error('Error reading selectedquiz.json:', error);
