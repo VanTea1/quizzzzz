@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 import { ShareInfoService, Name } from '../share-info.service';
 import { PlayerService } from '../player.service';
 import { trigger, state, style, transition, animate } from '@angular/animations';
-
+import { WebsocketService } from '../websocket.service';
 @Component({
   selector: 'app-create-players-home',
   templateUrl: './create-players-home.component.html',
@@ -37,7 +37,8 @@ export class CreatePlayersHomeComponent implements OnInit{
   public playerListGetPlayers: Name[] = [];
   public playerListCount: number = this.playerList.length;
 
-  constructor(private router: Router, public shareService: ShareInfoService, public playerService: PlayerService) {
+  constructor(private router: Router, public shareService: ShareInfoService, public playerService: PlayerService,
+    private websocketService: WebsocketService) {
 
   }
 
@@ -48,7 +49,16 @@ export class CreatePlayersHomeComponent implements OnInit{
     setTimeout(() => {
       this.animationState = 'end';
     }, 100);
+
+    this.websocketService.connect();
+    this.websocketService.sendMessage('Hello, server!');
+    
   }
+
+  ngOnDestroy(): void {
+    this.websocketService.disconnect();
+  }
+
 //es ist möglich die gleiche ID zu kriegen wenn man direkt die Seite refreshed nachdem man Leute hinzugefügt hat
 //muss aber wohl relativ absichtlich sein
   public addPlayer(): void {
@@ -93,6 +103,7 @@ export class CreatePlayersHomeComponent implements OnInit{
   public nextPage(): void {
     if (this.playerList.length > 0) {
       this.router.navigate(['/quizSelection']);
+      this.websocketService.changePage('/quizSelection');
     }
   }
 

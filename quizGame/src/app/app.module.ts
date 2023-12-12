@@ -8,13 +8,16 @@ import { CreatePlayersHomeComponent } from './create-players-home/create-players
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+
+const config: SocketIoConfig = { url: 'http://localhost:3001', options: {} }
 
 @NgModule({
   declarations: [
     AppComponent,
     QuizGameComponent,
     QuizSelectionComponent,
-    CreatePlayersHomeComponent
+    CreatePlayersHomeComponent,
   ],
   imports: [
     BrowserModule,
@@ -22,7 +25,8 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserAnimationsModule,
     FormsModule,
     HttpClientModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    SocketIoModule.forRoot(config), 
   ],
   providers: [],
   bootstrap: [AppComponent]

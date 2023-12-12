@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { ShareInfoService, Name, Quiz } from '../share-info.service';
 import { PlayerService } from '../player.service';
 import { trigger, state, style, transition, animate } from '@angular/animations';
+import { WebsocketService } from '../websocket.service';
 @Component({
   selector: 'app-quiz-selection',
   templateUrl: './quiz-selection.component.html',
@@ -30,7 +31,8 @@ export class QuizSelectionComponent {
   public quiz: Quiz[] = [];
   public players: Name[] = [];
 
-  constructor(private router: Router, public shareService: ShareInfoService, public playerService: PlayerService) {
+  constructor(private router: Router, public shareService: ShareInfoService, public playerService: PlayerService,
+    public websocketService: WebsocketService) {
 
   }
   getPlayers(): void {
@@ -40,6 +42,10 @@ export class QuizSelectionComponent {
   }
 
   ngOnInit(): void {
+
+    this.websocketService.onChangePage().subscribe((newPage: string) => {
+      console.log(`Received changePage event: ${newPage}`);
+    });
 
     this.playerService.getPlayersBackend().subscribe(players => {
       this.players = players;

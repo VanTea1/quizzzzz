@@ -14,7 +14,9 @@
     "body-parser": "^1.20.2",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "socket.io": "^4.7.2",
+    "ws": "^8.15.0"
   },
   "devDependencies": {
     "@types/cors": "^2.8.15",
