@@ -11,6 +11,8 @@ export function getPlayerList(response: Response) {
 export function savePlayerList(request: Request, response: Response) {
 
   const playerObject: Name = request.body;
+  playerObject.id = Date.now();
+  
   playerList.push(playerObject);
   response.send(playerList);
 };

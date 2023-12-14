@@ -4,6 +4,7 @@ import { ShareInfoService, Name } from '../share-info.service';
 import { Router } from '@angular/router';
 import { PlayerService } from '../player.service';
 import { trigger, state, style, transition, animate } from '@angular/animations';
+import { WebsocketService } from '../websocket.service';
 @Component({
   selector: 'app-quit-menu',
   standalone: true,
@@ -30,7 +31,7 @@ export class QuitMenuComponent {
   top3: any;
   animationState = 'start';
 
-  constructor(public playerService: PlayerService, private router: Router) {
+  constructor(public playerService: PlayerService, private router: Router, public websocketService: WebsocketService) {
   }
 
   getPlayers(): void{
@@ -42,6 +43,17 @@ export class QuitMenuComponent {
 
   ngOnInit() {
     this.getPlayers();
+
+    this.websocketService.connect();
+
+    this.websocketService.onChangePage().subscribe((newPage: string) => {
+      this.router.navigate([newPage]);
+    });
+    
+    this.websocketService.onChangePage().subscribe((newPage: string) => {
+      console.log(`Received changePage event: ${newPage}`);
+      this.router.navigate([newPage]);
+    });
     
     this.playerService.getPlayersBackend().subscribe(players => {
       this.players = players;
@@ -58,4 +70,8 @@ export class QuitMenuComponent {
     this.top3 = this.players.slice(0, 3);
   }
 
+  ngOnDestroy(): void {
+    this.websocketService.disconnect();
+  }
+  
 }

@@ -1,9 +1,10 @@
-import { Component, Renderer2, OnInit } from '@angular/core';
+import { Component, Renderer2, OnInit, NgZone } from '@angular/core';
 import { ShareInfoService, Quiz, Name, ResponseType } from '../share-info.service';
 import { PopupService } from '../popup.service';
 import { Router } from '@angular/router';
 import { PlayerService } from '../player.service';
 import { ScoreService } from '../score.service';
+import { WebsocketService } from '../websocket.service';
 
 @Component({
   selector: 'app-quiz-game',
@@ -31,7 +32,9 @@ export class QuizGameComponent implements OnInit {
     public shareService: ShareInfoService,
     public popupService: PopupService,
     public playerService: PlayerService,
-    public scoreService: ScoreService) {
+    public scoreService: ScoreService,
+    public websocketService: WebsocketService,
+    public ngZone: NgZone) {
   }
   public playerList: Name[] = [];
 
@@ -42,6 +45,18 @@ export class QuizGameComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.websocketService.connect();
+
+    this.websocketService.onChangePage().subscribe((newPage: string) => {
+      this.router.navigate([newPage]);
+    });
+    
+    this.websocketService.onChangePage().subscribe((newPage: string) => {
+      console.log(`Received changePage event: ${newPage}`);
+      this.router.navigate([newPage]);
+    });
+
+
     this.playerService.getPlayersBackend().subscribe(players => {
       this.players = players;
       if (this.players.length === 0) {
@@ -114,7 +129,12 @@ export class QuizGameComponent implements OnInit {
   }
 
   public quitQuiz() {
-    this.router.navigate(['/quitMenu']);
+    this.ngZone.run(() => {
+        this.router.navigate(['/quitMenu']);
+        console.log('Navigated successfully');
+        this.websocketService.changePage('/quitMenu');
+      
+    });
   }
 
   public showScore(): void {

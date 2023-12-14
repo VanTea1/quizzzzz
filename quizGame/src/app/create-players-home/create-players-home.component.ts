@@ -1,4 +1,4 @@
-import { Component, OnInit  } from '@angular/core';
+import { Component, NgZone, OnInit  } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -35,10 +35,9 @@ export class CreatePlayersHomeComponent implements OnInit{
   public selectedPlayer: Name | null = null;
   public playerList: Name[] = [];
   public playerListGetPlayers: Name[] = [];
-  public playerListCount: number = this.playerList.length;
 
   constructor(private router: Router, public shareService: ShareInfoService, public playerService: PlayerService,
-    private websocketService: WebsocketService) {
+    private websocketService: WebsocketService, public ngZone: NgZone) {
 
   }
 
@@ -51,23 +50,28 @@ export class CreatePlayersHomeComponent implements OnInit{
     }, 100);
 
     this.websocketService.connect();
-    this.websocketService.sendMessage('Hello, server!');
-    
-  }
+
+    this.websocketService.onChangePage().subscribe((newPage: string) => {
+      this.router.navigate([newPage]);
+    });
+
+    this.websocketService.onUpdateContent().subscribe((message: string) => {
+      this.playerService.getPlayersBackend().subscribe(players => {
+        this.playerList = players;
+      });
+    });
+    }
 
   ngOnDestroy(): void {
     this.websocketService.disconnect();
   }
 
-//es ist möglich die gleiche ID zu kriegen wenn man direkt die Seite refreshed nachdem man Leute hinzugefügt hat
-//muss aber wohl relativ absichtlich sein
   public addPlayer(): void {
     let newPlayer: Name = {
-      id: this.playerListCount,
+      id: null as any as number,
       name: this.playerName,
       score: 0
     };
-    this.playerListCount = this.playerListCount+1;
     if (newPlayer.name.trim()) {
       this.playerService.addPlayerBackend(newPlayer).subscribe(() => {
         this.playerService.getPlayersBackend().subscribe(players => {
@@ -79,7 +83,6 @@ export class CreatePlayersHomeComponent implements OnInit{
 
   public deletePlayer(): void {
     if (this.selectedPlayer) { 
-      this.playerListCount = this.playerListCount+1;
       this.playerService.deletePlayerBackend(this.selectedPlayer).subscribe({
         next: () => {
           //PlayerList updaten
@@ -101,10 +104,13 @@ export class CreatePlayersHomeComponent implements OnInit{
   }
 
   public nextPage(): void {
-    if (this.playerList.length > 0) {
-      this.router.navigate(['/quizSelection']);
-      this.websocketService.changePage('/quizSelection');
-    }
+    this.ngZone.run(() => {
+      if (this.playerList.length > 0) {
+        this.router.navigate(['/quizSelection']);
+        console.log('Navigated successfully');
+        this.websocketService.changePage('/quizSelection');
+      }
+    });
   }
 
 

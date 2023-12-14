@@ -9,6 +9,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+import { WebsocketService } from './websocket.service';
 
 const config: SocketIoConfig = { url: 'http://localhost:3001', options: {} }
 
@@ -28,7 +29,7 @@ const config: SocketIoConfig = { url: 'http://localhost:3001', options: {} }
     BrowserAnimationsModule,
     SocketIoModule.forRoot(config), 
   ],
-  providers: [],
+  providers: [WebsocketService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
