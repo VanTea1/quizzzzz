@@ -9,6 +9,8 @@ interface Events {
   CHANGE_PAGE: string;
   UPDATE_CONTENT: string;
   SELECTED_QUIZ: string;
+  SELECTED_QUESTION: string;
+  SELECTED_PLAYER: string;
 }
 
 @Injectable({
@@ -20,7 +22,9 @@ export class WebsocketService {
   public EVENTS: Events = {
     CHANGE_PAGE: 'change_page',
     UPDATE_CONTENT: 'update_content',
-    SELECTED_QUIZ: 'selected_quiz'
+    SELECTED_QUIZ: 'selected_quiz',
+    SELECTED_QUESTION: 'selected_question',
+    SELECTED_PLAYER: 'selected_player'
   }
   private connected = new BehaviorSubject<boolean>(false);
   constructor(private socket: Socket, private ngZone: NgZone, public router: Router) {
@@ -29,39 +33,59 @@ export class WebsocketService {
   }
 
 
-  connect(): void {
-    this.socket.connect();
+  public connect(): Promise<void> {
+    return new Promise<void>((resolve) => {
+      this.socket.connect();
+      this.socket.on('connect', () => {
+        console.log('WebSocket connected:', this.socket.ioSocket.connected);
+        resolve();
+      });
+    });
   }
 
-  disconnect(): void {
+  public disconnect(): void {
     this.socket.disconnect();
   }
 
-  changePage(newPage: string): void {
+  public changePage(newPage: string): void {
     this.socket.emit(this.EVENTS.CHANGE_PAGE, newPage);
   }
 
-  onChangePage(): Observable<string> {
-    console.log('Subscribed to changePage event');
-    console.log('WebSocket connected:', this.socket.ioSocket.connected);
+  public onChangePage(): Observable<string> {
     return this.socket.fromEvent(this.EVENTS.CHANGE_PAGE);
   }
 
-  isConnected(): Observable<boolean> {
+  public isConnected(): Observable<boolean> {
     return this.connected.asObservable();
   }
 
-  onUpdateContent(): Observable<string> {
+  public onUpdateContent(): Observable<string> {
     return this.socket.fromEvent(this.EVENTS.UPDATE_CONTENT);
   }
 
-  selectedQuiz(selectedQuiz: Quiz): void {
-    console.log('Emitting selected_quiz event:', selectedQuiz);
+  public selectedQuiz(selectedQuiz: Quiz): void {
     this.socket.emit(this.EVENTS.SELECTED_QUIZ, selectedQuiz);
   }
   
-  onSelectedQuiz(): Observable<Quiz> {
+  public onSelectedQuiz(): Observable<Quiz> {
     return this.socket.fromEvent(this.EVENTS.SELECTED_QUIZ);
   }
-  
+
+  public emitSelectedQuestion(data: any): void {
+    this.socket.emit(this.EVENTS.SELECTED_QUESTION, data);
+  }
+
+  public onSelectedQuestion(): Observable<any> {
+    return this.socket.fromEvent(this.EVENTS.SELECTED_QUESTION);
+  }
+
+   public emitSelectedPlayer(data: string): void {
+    this.socket.emit(this.EVENTS.SELECTED_PLAYER, data);
+  }
+
+  public onSelectedPlayer(): Observable<any> {
+    return this.socket.fromEvent(this.EVENTS.SELECTED_PLAYER);
+  } 
+
+
 }

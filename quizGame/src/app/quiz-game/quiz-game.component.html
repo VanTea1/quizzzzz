@@ -5,8 +5,8 @@
 
 
     <div class="questionBox">
-        <p [ngClass]="{'visibleQuestion': questionVisible, 'hiddenQuestion': !questionVisible}">{{selectedQuestion}}</p>
-        <p [ngClass]="{'visibleAnswer': answerVisible, 'hiddenAnswer': !answerVisible}">Antwort: {{selectedAnswer}}</p>
+        <p [ngClass]="{'visibleQuestion': questionVisible, 'hiddenQuestion': !questionVisible}">{{this.selectedQuestion.question}}</p>
+        <p [ngClass]="{'visibleAnswer': answerVisible, 'hiddenAnswer': !answerVisible}">Antwort: {{this.selectedQuestion.answer}}</p>
         <div class="spieler">
             <button class="spielerName" *ngFor="let name of this.players" (click)="selectPlayer(name)"
                 (click)="addScore(selectedPunkte)" (click)="showAnswer()" (click)="hideQuestion()">
@@ -27,19 +27,7 @@
     <div class="winners">
 
     </div>
-
-    <div *ngIf="selectedQuiz" class="test">
-        <div *ngFor="let category of selectedQuiz.categories" class="categories" [ngClass]="'p000'">
-            <div class="categoryBoard">
-                <div class="item" class="p000">{{ category.nameCategory }}</div>
-                <div class="item" *ngFor="let question of category.questions; index as i" [ngClass]="'p'+(i+1)+'00'"
-                    #questionPointer
-                    (click)="chooseQuestion(question.frage, question.punkte, category.nameCategory, questionPointer, question.antwort)" (click)="hideAnswer()" (click)="showQuestion()">
-                    {{ question.punkte }} 
-                </div>
-            </div>
-        </div>
-    </div>
+    <app-category></app-category>
     <div class="backgroundLineContainer">
         <div class="backgroundLine"></div>
     </div>

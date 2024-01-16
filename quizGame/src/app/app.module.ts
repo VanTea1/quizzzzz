@@ -10,6 +10,8 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import { WebsocketService } from './websocket.service';
+import { QuestionComponent } from './question/question.component';
+import { CategoryComponent } from './category/category.component';
 
 const config: SocketIoConfig = { url: 'http://localhost:3001', options: {} }
 
@@ -19,7 +21,10 @@ const config: SocketIoConfig = { url: 'http://localhost:3001', options: {} }
     QuizGameComponent,
     QuizSelectionComponent,
     CreatePlayersHomeComponent,
+    QuestionComponent,
+    CategoryComponent
   ],
+
   imports: [
     BrowserModule,
     AppRoutingModule,

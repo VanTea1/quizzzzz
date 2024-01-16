@@ -1,10 +1,12 @@
-import { Component, Renderer2, OnInit, NgZone } from '@angular/core';
+import { Component, Renderer2, OnInit, NgZone, ChangeDetectorRef } from '@angular/core';
 import { ShareInfoService, Quiz, Name, ResponseType } from '../share-info.service';
 import { PopupService } from '../popup.service';
 import { Router } from '@angular/router';
 import { PlayerService } from '../player.service';
 import { ScoreService } from '../score.service';
 import { WebsocketService } from '../websocket.service';
+import { Socket } from 'ngx-socket-io';
+import { QuestionComponent } from '../question/question.component';
 
 @Component({
   selector: 'app-quiz-game',
@@ -15,7 +17,7 @@ import { WebsocketService } from '../websocket.service';
 
 export class QuizGameComponent implements OnInit {
 
-  selectedQuestion: string = "";
+  selectedQuestion: any = "";
   selectedPunkte: number = 0;
   selectedCategory: string = "";
   selectedQuiz: Quiz | null = null;
@@ -23,9 +25,9 @@ export class QuizGameComponent implements OnInit {
   selectedAnswer: string = "";
   answerVisible = false;
   questionVisible = true;
-
   players: Name[] = [];
   selectedPlayer: any;
+  public playerList: Name[] = [];
 
   constructor(private router: Router,
     private renderer: Renderer2,
@@ -34,28 +36,31 @@ export class QuizGameComponent implements OnInit {
     public playerService: PlayerService,
     public scoreService: ScoreService,
     public websocketService: WebsocketService,
-    public ngZone: NgZone) {
-  }
-  public playerList: Name[] = [];
+    public ngZone: NgZone,
+    public socket: Socket,
+    public cdr: ChangeDetectorRef,
+    ) {}
 
-  public getPlayers(): void {
-    this.playerService.getPlayersBackend().subscribe((players) => {
-      this.playerList = players;
-    });
-  }
+
 
   ngOnInit(): void {
-    this.websocketService.connect();
-
-    this.websocketService.onChangePage().subscribe((newPage: string) => {
-      this.router.navigate([newPage]);
-    });
     
+    this.websocketService.connect().then(() => {
+      this.websocketService.onSelectedQuestion().subscribe((selectedQuestion: any) => {
+      });
+    });
     this.websocketService.onChangePage().subscribe((newPage: string) => {
-      console.log(`Received changePage event: ${newPage}`);
       this.router.navigate([newPage]);
     });
 
+    this.websocketService.onChangePage().subscribe((newPage: string) => {
+      this.router.navigate([newPage]);
+    });
+
+    this.websocketService.onSelectedQuestion().subscribe((selectedQuestion) => {
+      this.selectedQuestion = selectedQuestion;
+      this.cdr.detectChanges(); 
+    });
 
     this.playerService.getPlayersBackend().subscribe(players => {
       this.players = players;
@@ -63,22 +68,28 @@ export class QuizGameComponent implements OnInit {
         this.router.navigate(['/createPlayersHome']);
       }
     });
-    this.loadSelectedQuiz();
-  }
+    this.websocketService.onSelectedPlayer().subscribe((selectedPlayer) => {
+      this.ngZone.run(() => {
+        console.log(`Received selectedPlayer event:`, selectedPlayer);
+        this.showAnswer();
+        this.hideQuestion();
+        this.addScore(this.selectedPunkte);
+        console.log(this.selectedPunkte);
+      });
+    });
+  }//ngOnInit End
 
-  public loadSelectedQuiz(): void {
-    this.shareService.loadSelectedQuiz().subscribe(
-      (response: ResponseType) => {
-        this.selectedQuiz = response.Quiz;
-        this.selectedTitle = this.selectedQuiz.nameQuiz;
-        console.log('Selected quiz loaded successfully to frontend', this.selectedQuiz);
-      },
-    );
+
+  public getPlayers(): void {
+    this.playerService.getPlayersBackend().subscribe((players) => {
+      this.playerList = players;
+    });
   }
 
   public selectPlayer(player: any): void {
     this.selectedPlayer = player;
-
+     this.websocketService.emitSelectedPlayer(this.selectedPlayer); 
+    console.log("Sent player to everyone");
   }
 
   public addScore(punkte: number): void {
@@ -103,9 +114,6 @@ export class QuizGameComponent implements OnInit {
     });
   }
 
-  public showQuestion(): void {
-    this.questionVisible = true;
-  }
 
   public hideQuestion(): void {
     this.questionVisible = false;
@@ -120,20 +128,11 @@ export class QuizGameComponent implements OnInit {
   }
 
 
-  public chooseQuestion(frage: string, punkte: number, category: string, HTMLElem: HTMLElement, antwort: string) {
-    this.selectedQuestion = frage;
-    this.selectedPunkte = punkte;
-    this.selectedCategory = category;
-    this.selectedAnswer = antwort;
-    this.renderer.setAttribute(HTMLElem, "active", "inActive");
-  }
-
   public quitQuiz() {
     this.ngZone.run(() => {
-        this.router.navigate(['/quitMenu']);
-        console.log('Navigated successfully');
-        this.websocketService.changePage('/quitMenu');
-      
+      this.router.navigate(['/quitMenu']);
+      this.websocketService.changePage('/quitMenu');
+
     });
   }
 

@@ -27,17 +27,39 @@ const io = socket(server, {
 const EVENTS = {
   CHANGE_PAGE: 'change_page',
   UPDATE_CONTENT: 'update_content',
-  SELECTED_QUIZ: 'selected_quiz'
+  SELECTED_QUIZ: 'selected_quiz',
+  SELECTED_QUESTION: 'selected_question',
+  SELECTED_PLAYER: 'selected_player',
 };
 
 io.on('connection', (socket) => {
   console.log(`New connection ${socket.id}`);
 
-  socket.on(EVENTS.CHANGE_PAGE, (newPage) => {
-    console.log(`Received changePage event from ${socket.id}: ${newPage}`);
-    //change Page an alle Clients schicken
-    io.sockets.emit(EVENTS.CHANGE_PAGE, newPage);
 
+  //CHANGE PAGE
+  socket.on(EVENTS.CHANGE_PAGE, (newPage) => {
+      console.log(`Received changePage event from ${socket.id}: ${newPage}`);
+      io.sockets.emit(EVENTS.CHANGE_PAGE, newPage);
+  });
+
+
+  //SELECTED QUESTION
+  socket.on(EVENTS.SELECTED_QUESTION, (selectedQuestion) => {
+    try {
+      console.log(`Received selectedQuestion event from ${socket.id}:`, selectedQuestion);
+      const { question, answer, points } = selectedQuestion;
+      console.log('Question:', question);
+      console.log('Score:', points);
+      console.log('Answer:', answer);
+      io.sockets.emit(EVENTS.SELECTED_QUESTION, { question, points, answer });
+    } catch (error) {
+      console.error('Error processing SELECTED_QUESTION event:', error);
+    }
+  });
+
+  socket.on(EVENTS.SELECTED_PLAYER, (selectedPlayer) => {
+    console.log(`Received selectedPlayer event from ${socket.id}:`, selectedPlayer);
+    socket.broadcast.emit(EVENTS.SELECTED_PLAYER, selectedPlayer);
   });
 });
 
