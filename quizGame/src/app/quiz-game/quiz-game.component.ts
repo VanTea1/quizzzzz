@@ -7,6 +7,7 @@ import { ScoreService } from '../score.service';
 import { WebsocketService } from '../websocket.service';
 import { Socket } from 'ngx-socket-io';
 import { QuestionComponent } from '../question/question.component';
+import { QuestionBoxAndScoreService } from '../question-box-and-score.service';
 
 @Component({
   selector: 'app-quiz-game',
@@ -30,7 +31,6 @@ export class QuizGameComponent implements OnInit {
   public playerList: Name[] = [];
 
   constructor(private router: Router,
-    private renderer: Renderer2,
     public shareService: ShareInfoService,
     public popupService: PopupService,
     public playerService: PlayerService,
@@ -39,6 +39,7 @@ export class QuizGameComponent implements OnInit {
     public ngZone: NgZone,
     public socket: Socket,
     public cdr: ChangeDetectorRef,
+    public questionBoxAndScore: QuestionBoxAndScoreService
     ) {}
 
 
@@ -73,10 +74,12 @@ export class QuizGameComponent implements OnInit {
         console.log(`Received selectedPlayer event:`, selectedPlayer);
         this.showAnswer();
         this.hideQuestion();
-        this.addScore(this.selectedPunkte);
-        console.log(this.selectedPunkte);
+        //this.selectedPunkte = this.questionBoxAndScore.sendScore();
+        //this.addScore(this.selectedPunkte);
+        //console.log(this.selectedPunkte);
       });
     });
+
   }//ngOnInit End
 
 
@@ -86,14 +89,17 @@ export class QuizGameComponent implements OnInit {
     });
   }
 
+  
   public selectPlayer(player: any): void {
     this.selectedPlayer = player;
      this.websocketService.emitSelectedPlayer(this.selectedPlayer); 
-    console.log("Sent player to everyone");
   }
+
 
   public addScore(punkte: number): void {
     {
+      console.log(this.selectedPlayer);
+      punkte = this.questionBoxAndScore.sendScore();
       const player: Name = this.selectedPlayer;
       this.scoreService.addScoreBackend(player, punkte).subscribe({
         next: () => {
@@ -102,6 +108,8 @@ export class QuizGameComponent implements OnInit {
 
       });
       this.selectedPunkte = 0;
+      this.hideQuestion();
+      this.showAnswer();
     }
   }
 

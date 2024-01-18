@@ -38,10 +38,11 @@ export function sortPlayers(request: Request, response: Response) {
 export function addScore(request: Request, response: Response) {
   const id: string = request.params.id;
   const score: number = parseInt(request.params.score, 10) || 0;
+  console.log(`Received addScore request for id: ${id}, score: ${score}`);
 
   const player = playerList.find((p: Name) => p.id.toString() === id);
 
-
+  
   player.score = player.score + score;
 
   response.status(200).json(player);

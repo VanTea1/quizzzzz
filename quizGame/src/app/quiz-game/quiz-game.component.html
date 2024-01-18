@@ -9,7 +9,7 @@
         <p [ngClass]="{'visibleAnswer': answerVisible, 'hiddenAnswer': !answerVisible}">Antwort: {{this.selectedQuestion.answer}}</p>
         <div class="spieler">
             <button class="spielerName" *ngFor="let name of this.players" (click)="selectPlayer(name)"
-                (click)="addScore(selectedPunkte)" (click)="showAnswer()" (click)="hideQuestion()">
+                (click)="addScore(selectedPunkte)">
                 {{name.name}} {{name.score}}
             </button>
         </div>

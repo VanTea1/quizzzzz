@@ -6,6 +6,7 @@ import { PlayerService } from '../player.service';
 import { ScoreService } from '../score.service';
 import { WebsocketService } from '../websocket.service';
 import { Socket } from 'ngx-socket-io';
+import { QuestionBoxAndScoreService } from '../question-box-and-score.service';
 
 @Component({
   selector: 'app-question',
@@ -36,6 +37,7 @@ export class QuestionComponent {
     public ngZone: NgZone,
     public socket: Socket,
     public cdr: ChangeDetectorRef,
+    public questionBoxAndScore: QuestionBoxAndScoreService
     ) {}
 
 
@@ -59,14 +61,17 @@ export class QuestionComponent {
       points: this.selectedPunkte,
       cantegory: this.selectedCategory,
     }
-    if(this.questionVisible=true){
-      this.questionVisible = false;
-      this.answerVisible = true;
-    }
-    else{
-      this.questionVisible = true;
-      this.answerVisible = false;
-    }
+    // if(this.questionVisible=true){
+    //   this.questionVisible = false;
+    //   this.answerVisible = true;
+    // }
+    // else{
+    //   this.questionVisible = true;
+    //   this.answerVisible = false;
+    // }
+    //macht currently noch nichts
+    
+    this.questionBoxAndScore.getScoreAndPlayer(this.selectedPunkte, this.selectedPlayer);
     this.renderer.setAttribute(HTMLElem, "active", "inActive");
     this.websocketService.emitSelectedQuestion(questionData);
   }

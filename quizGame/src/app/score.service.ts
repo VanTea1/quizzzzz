@@ -14,6 +14,7 @@ export class ScoreService {
 
   public addScoreBackend(player: Name, score: number): Observable<Name> {
     const increaseScoreUrl = `${this.apiPlayerScore}/score/${player.id}/${score}`;
+    console.log("added score to backend");
     return this.http.post<Name>(increaseScoreUrl, {});
   }
 }
