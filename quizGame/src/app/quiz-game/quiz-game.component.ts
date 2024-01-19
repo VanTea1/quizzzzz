@@ -60,6 +60,8 @@ export class QuizGameComponent implements OnInit {
 
     this.websocketService.onSelectedQuestion().subscribe((selectedQuestion) => {
       this.selectedQuestion = selectedQuestion;
+      this.hideAnswer();
+      this.showQuestion();
       this.cdr.detectChanges(); 
     });
 
@@ -125,6 +127,10 @@ export class QuizGameComponent implements OnInit {
 
   public hideQuestion(): void {
     this.questionVisible = false;
+  }
+
+  public showQuestion(): void {
+    this.questionVisible = true;
   }
 
   public showAnswer(): void {

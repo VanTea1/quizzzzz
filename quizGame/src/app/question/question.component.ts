@@ -74,6 +74,7 @@ export class QuestionComponent {
     this.questionBoxAndScore.getScoreAndPlayer(this.selectedPunkte, this.selectedPlayer);
     this.renderer.setAttribute(HTMLElem, "active", "inActive");
     this.websocketService.emitSelectedQuestion(questionData);
+    this.cdr.detectChanges();
   }
 
 
