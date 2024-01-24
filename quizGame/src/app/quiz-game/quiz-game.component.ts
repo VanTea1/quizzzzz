@@ -6,7 +6,6 @@ import { PlayerService } from '../player.service';
 import { ScoreService } from '../score.service';
 import { WebsocketService } from '../websocket.service';
 import { Socket } from 'ngx-socket-io';
-import { QuestionComponent } from '../question/question.component';
 import { QuestionBoxAndScoreService } from '../question-box-and-score.service';
 
 @Component({
@@ -76,9 +75,6 @@ export class QuizGameComponent implements OnInit {
         console.log(`Received selectedPlayer event:`, selectedPlayer);
         this.showAnswer();
         this.hideQuestion();
-        //this.selectedPunkte = this.questionBoxAndScore.sendScore();
-        //this.addScore(this.selectedPunkte);
-        //console.log(this.selectedPunkte);
       });
     });
 

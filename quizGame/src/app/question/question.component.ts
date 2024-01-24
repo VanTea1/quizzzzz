@@ -1,4 +1,4 @@
-import { Component, Renderer2, OnInit, NgZone, ChangeDetectorRef } from '@angular/core';
+import { Component, Renderer2, OnInit, NgZone, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
 import { ShareInfoService, Quiz, Name, ResponseType } from '../share-info.service';
 import { PopupService } from '../popup.service';
 import { Router } from '@angular/router';
@@ -13,8 +13,9 @@ import { QuestionBoxAndScoreService } from '../question-box-and-score.service';
   templateUrl: './question.component.html',
   styleUrl: './question.component.less'
 })
-export class QuestionComponent {
 
+export class QuestionComponent {
+  @Output() buttonClick: EventEmitter<boolean> = new EventEmitter<boolean>();
   selectedQuestion: any = "";
   selectedPunkte: number = 0;
   selectedCategory: string = "";
@@ -26,6 +27,7 @@ export class QuestionComponent {
   players: Name[] = [];
   selectedPlayer: any;
   public playerList: Name[] = [];
+  public clickable: boolean = true;
 
   constructor(private router: Router,
     private renderer: Renderer2,
@@ -49,30 +51,21 @@ export class QuestionComponent {
         this.cdr.detectChanges(); 
       });
     }
-  public chooseQuestion(frage: string, punkte: number, category: string, HTMLElem: HTMLElement, antwort: string) {
+  public chooseQuestion(frage: string, punkte: number, category: string, antwort: string) {
     this.selectedQuestion = frage;
     this.selectedPunkte = punkte;
     this.selectedCategory = category;
     this.selectedAnswer = antwort;
-
+    this.clickable = !this.clickable;
     const questionData = {
       question: this.selectedQuestion,
       answer: this.selectedAnswer,
       points: this.selectedPunkte,
       cantegory: this.selectedCategory,
     }
-    // if(this.questionVisible=true){
-    //   this.questionVisible = false;
-    //   this.answerVisible = true;
-    // }
-    // else{
-    //   this.questionVisible = true;
-    //   this.answerVisible = false;
-    // }
-    //macht currently noch nichts
-    
+    this.buttonClick.emit(this.clickable);
     this.questionBoxAndScore.getScoreAndPlayer(this.selectedPunkte, this.selectedPlayer);
-    this.renderer.setAttribute(HTMLElem, "active", "inActive");
+    //this.renderer.setAttribute(HTMLElem, "active", "inActive"); //funktioniert nur bei dem der es anklickt
     this.websocketService.emitSelectedQuestion(questionData);
     this.cdr.detectChanges();
   }

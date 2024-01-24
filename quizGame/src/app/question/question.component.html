@@ -3,10 +3,18 @@
         <div class="categoryBoard">
             <div class="item" class="p000">{{ category.nameCategory }}</div>
             <div class="item" *ngFor="let question of category.questions; index as i" [ngClass]="'p'+(i+1)+'00'"
-                #questionPointer
-                (click)="chooseQuestion(question.frage, question.punkte, category.nameCategory, questionPointer, question.antwort)">
+                [ngClass]="{'pressed': clickable}"
+                (click)="chooseQuestion(question.frage, question.punkte, category.nameCategory, question.antwort)">
                 {{ question.punkte }} 
             </div>
         </div>
     </div>
 </div>
+
+<!-- andere Lösung finden die nicht mit #questionPointer ist, da dieser Probleme mit Websockets macht, but how? HELPPPP 
+     Problem: Nur der jenige der die Frage anklickt, kriegt diese auch ausgegraut und kann sie nicht mehr anklicken
+     die anderen Clients können die Frage immer noch anklicken 
+     Am Ehesten liegt es wohl daran das ich mit dem Question Pointer arbeite, weil dieser das HTML Element weiter gibt was angeklickt wurde etc
+     aber halt nur für den der es wohl angeklickt hat
+     Die anderen Clients kriegen diese Infos einfach nicht    
+-->
