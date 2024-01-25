@@ -105,7 +105,7 @@ export class QuizGameComponent implements OnInit {
         },
 
       });
-      this.selectedPunkte = 0;
+      punkte = 0; //geht nicht???
       this.hideQuestion();
       this.showAnswer();
     }
