@@ -3,7 +3,7 @@
         <div class="categoryBoard">
             <div class="item" class="p000">{{ category.nameCategory }}</div>
             <div class="item" *ngFor="let question of category.questions; index as i" [ngClass]="'p'+(i+1)+'00'"
-                [ngClass]="{'pressed': clickable}"
+                [class.pressed]="clickable"
                 (click)="chooseQuestion(question.frage, question.punkte, category.nameCategory, question.antwort)">
                 {{ question.punkte }} 
             </div>

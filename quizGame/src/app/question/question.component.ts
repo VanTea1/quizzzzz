@@ -27,7 +27,7 @@ export class QuestionComponent {
   players: Name[] = [];
   selectedPlayer: any;
   public playerList: Name[] = [];
-  public clickable: boolean = true;
+  public clickable: boolean = false;
 
   constructor(private router: Router,
     private renderer: Renderer2,
