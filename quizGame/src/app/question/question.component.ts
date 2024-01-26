@@ -11,10 +11,9 @@ import { QuestionBoxAndScoreService } from '../question-box-and-score.service';
 @Component({
   selector: 'app-question',
   templateUrl: './question.component.html',
-  styleUrl: './question.component.less'
+  styleUrls: ['./question.component.less']
 })
-
-export class QuestionComponent {
+export class QuestionComponent implements OnInit {
   @Output() buttonClick: EventEmitter<boolean> = new EventEmitter<boolean>();
   selectedQuestion: any = "";
   selectedPunkte: number = 0;
@@ -28,49 +27,54 @@ export class QuestionComponent {
   selectedPlayer: any;
   public playerList: Name[] = [];
   public clickable: boolean = false;
+  public selectedQuestionIndex: number | null = null;
 
   constructor(private router: Router,
-    private renderer: Renderer2,
-    public shareService: ShareInfoService,
-    public popupService: PopupService,
-    public playerService: PlayerService,
-    public scoreService: ScoreService,
-    public websocketService: WebsocketService,
-    public ngZone: NgZone,
-    public socket: Socket,
-    public cdr: ChangeDetectorRef,
-    public questionBoxAndScore: QuestionBoxAndScoreService
-    ) {}
+              private renderer: Renderer2,
+              public shareService: ShareInfoService,
+              public popupService: PopupService,
+              public playerService: PlayerService,
+              public scoreService: ScoreService,
+              public websocketService: WebsocketService,
+              public ngZone: NgZone,
+              public socket: Socket,
+              public cdr: ChangeDetectorRef,
+              public questionBoxAndScore: QuestionBoxAndScoreService) {}
 
+  ngOnInit(): void {
+    this.loadSelectedQuiz();
+    this.cdr.detectChanges();
+    this.websocketService.onSelectedQuestion().subscribe((selectedQuestion) => {
+      this.selectedQuestion = selectedQuestion;
+      this.cdr.detectChanges(); 
+    });
+  }
 
-    ngOnInit(): void {
-      this.loadSelectedQuiz();
-      this.cdr.detectChanges();
-      this.websocketService.onSelectedQuestion().subscribe((selectedQuestion) => {
-        this.selectedQuestion = selectedQuestion;
-        this.cdr.detectChanges(); 
-      });
-    }
-  public chooseQuestion(frage: string, punkte: number, category: string, antwort: string) {
+  public chooseQuestion(frage: string, punkte: number, category: string, antwort: string, index: number) {
     this.selectedQuestion = frage;
     this.selectedPunkte = punkte;
     this.selectedCategory = category;
     this.selectedAnswer = antwort;
+
+    if (this.selectedQuestionIndex === index) {
+      this.selectedQuestionIndex = null;
+    } else {
+      this.selectedQuestionIndex = index;
+    }
+
     this.clickable = !this.clickable;
     const questionData = {
       question: this.selectedQuestion,
       answer: this.selectedAnswer,
       points: this.selectedPunkte,
       cantegory: this.selectedCategory,
-    }
+    };
+    
     this.buttonClick.emit(this.clickable);
     this.questionBoxAndScore.getScoreAndPlayer(this.selectedPunkte, this.selectedPlayer);
-    //this.renderer.setAttribute(HTMLElem, "active", "inActive"); //funktioniert nur bei dem der es anklickt
     this.websocketService.emitSelectedQuestion(questionData);
     this.cdr.detectChanges();
   }
-
-
 
   public loadSelectedQuiz(): void {
     this.shareService.loadSelectedQuiz().subscribe(
@@ -80,5 +84,4 @@ export class QuestionComponent {
       },
     );
   }
-  
 }
