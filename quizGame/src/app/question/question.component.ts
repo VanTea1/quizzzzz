@@ -54,25 +54,27 @@ export class QuestionComponent implements OnInit {
     this.selectedQuestion = frage;
     this.selectedPunkte = punkte;
     this.selectedCategory = category;
-    this.selectedAnswer = antwort;
+    this.selectedAnswer = antwort; //abspeicheren der Fragedaten etc in einer extra Variable
 
     if (this.selectedQuestionIndex === index) {
       this.selectedQuestionIndex = null;
     } else {
       this.selectedQuestionIndex = index;
-    }
+    } //anstelle eines Pointers, wird hier ein Index benutzt
 
-    this.clickable = !this.clickable;
-    const questionData = {
+    this.clickable = !this.clickable; //wenn die Frage clickable war, wird diese auf nicht clickable gesetzt
+
+     const questionData = {
       question: this.selectedQuestion,
       answer: this.selectedAnswer,
       points: this.selectedPunkte,
       cantegory: this.selectedCategory,
-    };
+    }; //Daten der Frage die an die Clients geschickt werden soll
     
     this.buttonClick.emit(this.clickable);
-    this.questionBoxAndScore.getScoreAndPlayer(this.selectedPunkte, this.selectedPlayer);
-    this.websocketService.emitSelectedQuestion(questionData);
+    this.questionBoxAndScore.getScoreAndPlayer(this.selectedPunkte, this.selectedPlayer); //damit werden die Punkte geupdated bzw an das Quiz Game geschickt
+    // mit einem Service, dass das Quiz Game Component damit weiter arbeitet
+    this.websocketService.emitSelectedQuestion(questionData); //Frage wird via Websocket an alle Clients geschickt
     this.cdr.detectChanges();
   }
 

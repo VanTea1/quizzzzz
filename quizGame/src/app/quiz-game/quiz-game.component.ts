@@ -97,17 +97,17 @@ export class QuizGameComponent implements OnInit {
   public addScore(punkte: number): void {
     {
       console.log(this.selectedPlayer);
-      punkte = this.questionBoxAndScore.sendScore();
-      const player: Name = this.selectedPlayer;
+      punkte = this.questionBoxAndScore.sendScore(); //holt sich den Score aus dem Service, welcher die Punkte aus question.component hat
+      const player: Name = this.selectedPlayer; //Der selected Player kriegt eine eigene Variable
       this.scoreService.addScoreBackend(player, punkte).subscribe({
         next: () => {
-          this.getSortedPlayers();
+          this.getSortedPlayers(); //nach dem der Score dem Spieler gegeben wurde, werden die Buttons neu sortiert nach Platzierung
         },
 
       });
       punkte = 0; //geht nicht???
-      this.hideQuestion();
-      this.showAnswer();
+      this.hideQuestion(); //Frage verstecken
+      this.showAnswer(); //Antwort zeigen
     }
   }
 
