@@ -27,7 +27,7 @@ export class QuestionComponent implements OnInit {
   selectedPlayer: any;
   public playerList: Name[] = [];
   public clickable: boolean = false;
-  public selectedQuestionIndex: number | null = null;
+  public selectedQuestionIndex: number | null = null; //QuestionIndex, Beispiel von ChatGPT nicht sicher ob es wirklich am Ende so geht
 
   constructor(private router: Router,
               private renderer: Renderer2,
@@ -42,7 +42,7 @@ export class QuestionComponent implements OnInit {
               public questionBoxAndScore: QuestionBoxAndScoreService) {}
 
   ngOnInit(): void {
-    this.loadSelectedQuiz();
+    this.loadSelectedQuiz(); //Daten des ausgewählten Quiz laden
     this.cdr.detectChanges();
     this.websocketService.onSelectedQuestion().subscribe((selectedQuestion) => {
       this.selectedQuestion = selectedQuestion;
