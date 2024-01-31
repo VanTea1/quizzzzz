@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrl: './category.component.less'
 })
 export class CategoryComponent {
-
+ //ist nur zum Verschachteln da
 }

@@ -100,7 +100,7 @@ export class CreatePlayersHomeComponent implements OnInit{
 
 
   public selectPlayer(player: Name): void {
-    this.selectedPlayer = player;
+    this.selectedPlayer = player; //wenn geclickt wird, wird der Player selected
   }
 
   public nextPage(): void {

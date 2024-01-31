@@ -80,7 +80,7 @@ export class QuizGameComponent implements OnInit {
 
   }//ngOnInit End
 
-
+//Playerlist aus dem Backend holen
   public getPlayers(): void {
     this.playerService.getPlayersBackend().subscribe((players) => {
       this.playerList = players;
@@ -111,6 +111,7 @@ export class QuizGameComponent implements OnInit {
     }
   }
 
+  //Playerlist Infos holen die sortiert werden
   public getSortedPlayers(): void {
     this.playerService.sortPlayersBackend().subscribe({
       next: (sortedPlayers: Name[]) => {
@@ -120,7 +121,7 @@ export class QuizGameComponent implements OnInit {
     });
   }
 
-
+//Funktionen um Antwort und Frage zu hidden/sichtbar zu machen
   public hideQuestion(): void {
     this.questionVisible = false;
   }
@@ -137,7 +138,7 @@ export class QuizGameComponent implements OnInit {
     this.answerVisible = false;
   }
 
-
+//Alle werden zur nächsten Seite geleitet
   public quitQuiz() {
     this.ngZone.run(() => {
       this.router.navigate(['/quitMenu']);
@@ -145,7 +146,7 @@ export class QuizGameComponent implements OnInit {
 
     });
   }
-
+//Scoreboard öffnen mit der Popup Funktion die im Service ist
   public showScore(): void {
     this.popupService.openScoreboard(this.players);
   }

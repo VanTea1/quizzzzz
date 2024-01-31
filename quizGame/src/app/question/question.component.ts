@@ -27,7 +27,8 @@ export class QuestionComponent implements OnInit {
   selectedPlayer: any;
   public playerList: Name[] = [];
   public clickable: boolean = false;
-  public selectedQuestionIndex: number | null = null; //QuestionIndex, Beispiel von ChatGPT nicht sicher ob es wirklich am Ende so geht
+  public selectedQuestionIndex: number | null = null; //QuestionIndex, Beispiel von ChatGPT nicht sicher ob es wirklich am Ende so geht damit kann ich zumindest
+  // eine Reihe markieren
 
   constructor(private router: Router,
               private renderer: Renderer2,
